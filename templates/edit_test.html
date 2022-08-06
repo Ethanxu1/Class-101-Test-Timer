@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load templatetags %}
+
+
+{% block headscripts %}
+<link rel="stylesheet" href="{% static 'test_monitor_app/edit_test.css' %}">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+{% endblock headscripts %}
+
+
+{% block title %}
+
+{% endblock title %}
+
+
+{%  block body %}
+<ul>
+    <form action="." method="POST"> {% csrf_token %}
+    {% for section in test_sections %}
+            {% if forloop.counter == 1 %}
+            {{ section.0 }}
+            {% else %}
+            <li>
+                <span>
+                    {{ section.1 }}
+                </span>
+                <span>
+                    <input type="text" value="{{ section.0 }}" name="{{ section.2 }}">
+                </span>
+            </li>
+            {% endif %}
+            <!-- <li>
+                {{ section }}
+            </li> -->
+            {% endfor %}
+            <button class="save" name="action" value="save-{{ section.0 }}">save</button>
+            <button class="cancel" name="action" value="cancel-{{ section.0 }}">cancel</button>
+    </form>
+</ul>
+
+{% endblock body %}
+
+
+{% block js %}
+<script src="{% static 'test_monitor_app/edit_test.js' %}"></script>
+{% endblock %}

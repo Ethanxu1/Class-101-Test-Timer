@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load templatetags %}
+
+
+{% block headscripts %}
+<link rel="stylesheet" href="{% static 'test_monitor_app/dashboard.css' %}">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+{% endblock headscripts %}
+
+
+{% block title %}
+
+{% endblock title %}
+
+
+{%  block body %}
+<nav>
+    <form action="." method="POST"> {% csrf_token %}
+        <button class="logout" name="action" value="logout">Logout</button>
+    </form>
+</nav>
+
+{% for test in sections %}
+<div class="test">
+    <ul>
+        {% for section in test %}
+            {% if forloop.counter == 1 %}
+            <li class="test-type">
+                {{ section.0 }}
+            </li>
+            {% else %}
+                {% if forloop.counter != test|len %}
+                <li>
+                    <span>
+                        {{ section.1 }}
+                    </span>
+                    <span>
+                        {{ section.0 }}
+                    </span>
+                </li>
+                {% endif %}
+            {% endif %}
+            {% if forloop.counter == test|len %}
+            <div class="button-container">
+            <form action="." method="POST"> {% csrf_token %}
+                <button class="edit" name="action" value="edit-{{ section.0 }}">edit</button>
+                <button class="delete" name="action" value="delete-{{ section.0 }}">delete</button>
+            </form>
+            <form action="." method="POST" target="_blank">{% csrf_token %}
+                <button class="execute" name="action" value="execute-{{ section|get0 }}">execute</button>
+            </form>
+            </div>
+        
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+
+<form action="." method="POST"> {% csrf_token %}
+    <button name='action' value='create' class="create">Create Test +</button>
+</form>
+
+{% endblock body%}
+
+
+{% block js %}
+<script src="{% static 'test_monitor_app/dashboard.js' %}"></script>
+{% endblock %}

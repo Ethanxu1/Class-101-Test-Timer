@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block headscripts %}
+<link rel="stylesheet" href="{% static 'test_monitor_app/signup_and_login.css' %}">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+{% endblock headscripts %}
+
+
+{% block title %}
+
+{% endblock title %}
+
+
+{%  block body %}
+<div class="main">  	
+    <input type="checkbox" id="chk" aria-hidden="true">
+
+    <div class="signup">
+        <form action="." method="POST"> {% csrf_token %}
+            <label for="chk" class="signup-label" aria-hidden="true">Sign up</label>
+            <input type="text" name="first_name" placeholder="First Name" required="">
+            <input type="text" name="last_name" placeholder="Last Name" required="">
+            <input type="text" name="username" placeholder="User name" required="">
+            <input type="email" name="email" placeholder="Email" required="">
+            <input type="password" class="password" name="password" placeholder="Password" required="">
+            <input type="password" class="conf-password" name="conf-password" placeholder="Confirm Password" required="">
+            <button disabled="disabled" class="signup-btn">Sign up</button>
+        </form>
+    </div>
+
+    <div class="login">
+        <form action="." method="POST"> {% csrf_token %}
+            <label for="chk" class="login-label" aria-hidden="true">Login</label>
+            <input type="text" name="auth_username" placeholder="Username" required="">
+            <input type="password" name="auth_password" placeholder="Password" required="">
+            <button class="login-btn">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock body%}
+
+
+{% block js %}
+<script src="{% static 'test_monitor_app/signup_and_login.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block headscripts %}
+<link rel="stylesheet" href="{% static 'test_monitor_app/create_test.css' %}">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+{% endblock headscripts %}
+
+
+{% block title %}
+
+{% endblock title %}
+
+
+{%  block body %}
+<form action="." method="POST"> {% csrf_token %}
+    <div class="test-type">
+        <select name="test" id="test">
+            <option value="SAT">SAT</option>
+            <option value="ACT">ACT</option>
+        </select>
+        <div class="essay-field">
+            <label for="essay">Essay: </label>
+            <input type="checkbox" name="essay" class="has-essay" value="false">
+        </div>
+        <div class="accommodations">
+            <label for="accommodations">Accommodations: </label>
+            <input type="checkbox" name="accommodations" class="has-accommodations" value="false">
+        </div>
+        <p>Note: All times are to be formated in the following order minutes:seconds <br>
+        removing the colon will be treated as minutes <br>
+        65 minutes 30 seconds: 65:30 <br>
+        65 minutes: 65 or 65:00 or 65:0 <br>
+        30 seconds: 00:30, 0:30 or :30</p>
+    </div>
+    
+    <div class="sat" style="display:none;">
+        {% for label in sat %}
+            <div>
+                <div class="field-element">
+                    <label>{{ label.0 }}</label>
+                    <input type="text" name="{{ label.1 }}">
+                </div>
+            </div>
+        {% endfor %}
+        <div class="before_essay_break" style="display:none;">
+            <label>Break 3: </label>
+            <input type="text" name="before_essay_break_time_sat">
+        </div>
+        <div class="essay" style="display:none;">
+            <label>Essay:</label>
+            <input type="text" name="essay_time_sat">
+        </div>
+        <div class="button-container">
+            <button class="save" name="action" value="Save">SAVE</button>
+            <button class="cancel" name="action" value="Cancel">CANCEL</button>
+        </div>
+    </div>
+    <div class="sat_acc" style="display:none;">
+        {% for label in sat_acc %}
+            <div>
+                <div class="field-element">
+                    <label>{{ label.0 }}</label>
+                    <input type="text" name="{{ label.1 }}">
+                </div>
+            </div>
+        {% endfor %}
+        <div class="before_essay_break" style="display:none;">
+            <label>Break 4: </label>
+            <input type="text" name="before_essay_break_time_sat_acc">
+        </div>
+        <div class="essay" style="display:none;">
+            <label>Essay:</label>
+            <input type="text" name="essay_time_sat_acc">
+        </div>
+        <div class="button-container">
+            <button class="save" name="action" value="Save">SAVE</button>
+            <button class="cancel" name="action" value="Cancel">CANCEL</button>
+        </div>
+    </div>
+
+    <div class="act" style="display:none;">
+        {% for label in act %}
+            <div>
+                <div class="field-element">
+                    <label>{{ label.0 }}</label>
+                    <input type="text" name="{{ label.1 }}">
+                </div>
+            </div>
+        {% endfor %}
+        <div class="before_essay_break" style="display:none;">
+            <label>Break 2: </label>
+            <input type="text" name="before_essay_break_time_act">
+        </div>
+        <div class="essay" style="display:none;">
+            <label>Essay:</label>
+            <input type="text" name="essay_time_act">
+        </div>
+        <div class="button-container">
+            <button class="save" name="action" value="Save">SAVE</button>
+            <button class="cancel" name="action" value="Cancel">CANCEL</button>
+        </div>
+    </div>
+
+</form>
+{% endblock body%}
+
+
+{% block js %}
+<script src="{% static 'test_monitor_app/create_test.js' %}"></script>
+{% endblock %}

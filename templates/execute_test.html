@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load templatetags %}
+
+
+{% block headscripts %}
+<link rel="stylesheet" href="{% static 'test_monitor_app/execute_test.css' %}">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+{% endblock headscripts %}
+
+
+{% block title %}
+
+{% endblock title %}
+
+
+{%  block body %}
+<h1>Execute Test</h1>
+<table class="section-times">
+    {% for section in test_sections %}
+        {% if forloop.counter == 1 %}
+        {{ section.0 }}
+        {% else %}
+        <tr>
+            <td class="{{ forloop.counter|add:'-1' }}">
+                <span>{{ section.1 }}</span> <span>{{ section.0 }}</span>
+            </td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+<div class="timer-container">
+    <h1 class="time">0:00</h1>
+    <button class="start">Start</button>
+    <button class="stop">Stop</button>
+    <button class="restart-test">Restart Test</button>
+    <button class="restart-section">Restart Section</button>
+</div>
+{% endblock body%}
+
+
+{% block js %}
+<script src="{% static 'test_monitor_app/execute_test.js' %}"></script>
+{% endblock %}
